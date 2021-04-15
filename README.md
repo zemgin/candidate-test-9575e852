@@ -1,3 +1,90 @@
+# 🥼 YunoJuno Candidate Test (django-visitor-pass)
+
+Hi!
+
+Welcome to the YunoJuno candidate test.
+
+First of all, thank you for applying and we appreciate you taking
+the time to do this test. Please don't spend more than three hours
+on it max.
+
+### 👋 Introduction
+
+This repo is a point-in-time clone of one of our open-source projects
+that is an active dependency of our platform build. Your task will be
+to setup the project and extend it in a specific way.
+
+This particular Django library allows us to handle guest visitors (and
+all the authorisation overhead that comes with that) in a straight-
+forward way with minimal changes required to the underlying views.
+
+It allows us to create links that visitors can use to access a specific
+view for a specific time period, without them having to login via the
+normal authentication system.
+
+You can read the full README in the section below, and that will give
+you a much better background understanding of why this library exists
+and how it is intended to work.
+
+NB: We will never use your submission in producion, while this is a clone
+of an open source repository we do actively maintain - this is not about
+us getting you to code us a free feature. See more below.
+
+
+### 📈 Goals
+
+The over-arching goal is to enhance the library such that each visitor
+link can be used a maximum number of times with that number being set
+when the visitor is first created.
+
+You are free to implement this however you like but at minimum you
+will need:
+
+1. a way to persist the maximum number of visits allowed.
+1. a way to track the number of visits.
+1. a way to reject visits for visitors that have reached the limit.
+
+### 👩‍💻 What is this test designed to showcase?
+
+* your ability to set up a Python project.
+* your capacity to take existing code and build on top of it.
+* how you would approach an everyday feature request.
+* how you work as part of a normal code review process.
+* how you discuss your solution (we may revisit it)
+
+### 📥 Submission procedure
+
+1. Fork the repository^☨.
+1. Clone it locally & setup the environment.
+1. Make your code changes.
+1. Push to your fork.
+1. Open a PR against this repo, as if this was an everyday feature addition.
+1. Confirm with us that you have done so, stating your GitHub username.
+
+^☨ There are privacy concerns with submitting to a project that is openly
+accessible to the web so please take that into account, and if you require
+the extra anonymity - please register a throwaway GitHub account instead of
+using your actual GitHub account.
+
+### 🕰️ What will happen to my code after?
+
+* Your code & PR will be reviewed, and we may ask questions of it as you'd
+expect as part of a normal code review process.
+
+* We discuss the code in the next stages of the interview pipeline.
+
+* After that, we delete the repository. Your code will never be used in
+production.
+
+
+----
+
+⚠️  Below here is the original README from the open-source project and will
+give you a bit of background as to what the projects goals were and how it
+goes about them.
+
+-----
+
 # Django Visitor Pass
 
 Django app for managing temporary session-based users.
@@ -87,7 +174,7 @@ objects. The user has a boolean `user.is_visitor` property, and the request has
 a `request.visitor` property which is the relevant `Visitor` object.
 
 This is done via two bits of middleware, `VisitorRequestMiddleware` and
-`VisitSessionMiddleware`. 
+`VisitSessionMiddleware`.
 
 #### `VisitorRequestMiddleware`
 
@@ -104,7 +191,7 @@ if it can't access `request.visitor`). It has two responsibilities:
 
 1. If the request object has a visitor object on it, then it _must_ have been
    set by the request middleware on the current request - so it's a new visitor,
-   and we immediately stash it in the `request.session`. 
+   and we immediately stash it in the `request.session`.
 
 1. If `request.visitor` is None, then we don't have a _new_ visitor, but there
    may be one already stashed in the `request.session`, in which case we want to
@@ -115,6 +202,8 @@ values from request-into-session-into-request it's a lot simpler to run two
 completely separate passes.
 
 ### Configuration
+
+Instructions for third-party projects using this library:
 
 #### Django Settings
 
@@ -176,4 +265,34 @@ def complicated_rules(request):
       pass
    else:
       raise PermissionDenied
+```
+
+### Development
+
+To set up your local environment:
+
+1. Install Python 3.x ( see `tox.ini` for supported versions)
+
+1. Install Poetry.
+
+1. Install the dependencies & working environment:
+
+```bash
+poetry install
+```
+
+### Testing
+
+The test suite is handled by pytest & tox.
+
+Run suite in your environment:
+
+```bash
+poetry run test
+```
+
+Run suite & extra checks in all supported environments:
+
+```bash
+poetry run tox
 ```

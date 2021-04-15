@@ -54,14 +54,14 @@ will need:
 
 ### 📥 Submission procedure
 
-1. Fork the repository^☨.
+1. Fork the repository<sup>☨</sup>.
 1. Clone it locally & setup the environment.
 1. Make your code changes.
 1. Push to your fork.
 1. Open a PR against this repo, as if this was an everyday feature addition.
 1. Confirm with us that you have done so, stating your GitHub username.
 
-^☨ There are privacy concerns with submitting to a project that is openly
+<sup>☨</sup> There are privacy concerns with submitting to a project that is openly
 accessible to the web so please take that into account, and if you require
 the extra anonymity - please register a throwaway GitHub account instead of
 using your actual GitHub account.
@@ -81,7 +81,7 @@ production.
 
 ⚠️  Below here is the original README from the open-source project and will
 give you a bit of background as to what the projects goals were and how it
-goes about them.
+goes about them as well as basic instructions around setting up & testing.
 
 -----
 

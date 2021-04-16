@@ -5,18 +5,25 @@ Hi!
 Welcome to the YunoJuno candidate test.
 
 First of all, thank you for applying and we appreciate you taking
-the time to do this test. Please don't spend more than three hours
-on it max.
+the time to do this test. It's not designed to be a long challenge
+so please don't spend more than three hours on it max. If you feel
+there are bits left unfinished - that's fine, discuss them in the
+pull request and we can talk through them later.
+
+You'll have the best head start if you read this file in its entirety,
+but please do get in touch if you have outstanding queries that are
+not answered - this test is meant to resemble everyday development
+as much as it can given the constraints.
 
 ### 👋 Introduction
 
 This repo is a point-in-time clone of one of our open-source projects
 that is an active dependency of our platform build. Your task will be
-to setup the project and extend it in a specific way.
+to setup the project and extend it with a feature in a specific way.
 
 This particular Django library allows us to handle guest visitors (and
 all the authorisation overhead that comes with that) in a straight-
-forward way with minimal changes required to the underlying views.
+forward way with minimal changes required to underlying views.
 
 It allows us to create links that visitors can use to access a specific
 view for a specific time period, without them having to login via the
@@ -26,9 +33,10 @@ You can read the full README in the section below, and that will give
 you a much better background understanding of why this library exists
 and how it is intended to work.
 
-NB: We will never use your submission in producion, while this is a clone
+NB: We will never use your submission in production. While this is a clone
 of an open source repository we do actively maintain - this is not about
-us getting you to code us a free feature. See more below.
+us getting you to code us a free feature. See more about how we treat
+your code below.
 
 
 ### 📈 Goals
@@ -50,7 +58,7 @@ will need:
 * your capacity to take existing code and build on top of it.
 * how you would approach an everyday feature request.
 * how you work as part of a normal code review process.
-* how you discuss your solution (we may revisit it)
+* how your pull request explains the change to the team.
 
 ### 📥 Submission procedure
 

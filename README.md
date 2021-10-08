@@ -42,15 +42,18 @@ your code below.
 ### 📈 Goals
 
 The over-arching goal is to enhance the library such that each visitor
-link can be used a maximum number of times with that number being set
-when the visitor is first created.
+link can be used a maximum number of times _with the maximum uses allowed
+per visitor being set when the visitor is first created_.
 
 You are free to implement this however you like but at minimum you
 will need:
 
-1. a way to persist the maximum number of visits allowed.
+1. a way to track the maximum number of visits allowed.
 1. a way to track the number of visits.
 1. a way to reject visits for visitors that have reached the limit.
+
+A visitor link should always retain info about how many maximum uses were
+originally allowed.
 
 ### 👩‍💻 What is this test designed to showcase?
 

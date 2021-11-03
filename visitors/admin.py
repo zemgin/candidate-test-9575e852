@@ -55,6 +55,7 @@ class VisitorsAdmin(admin.ModelAdmin):
         "expires_at",
         "is_active",
         "_is_valid",
+        "max_allowed_visits",
     )
     readonly_fields = (
         "uuid",
@@ -63,6 +64,8 @@ class VisitorsAdmin(admin.ModelAdmin):
         "_context",
         "is_active",
         "expires_at",
+        "number_of_visits",
+        "visits_exceeded",
     )
     search_fields = (
         "first_name",

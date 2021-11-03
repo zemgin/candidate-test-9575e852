@@ -51,6 +51,25 @@ class Visitor(models.Model):
             "Set to False to disable the visitor link and prevent further access."
         ),
     )
+    max_allowed_visits = models.PositiveIntegerField(
+        blank=True,
+        null=True,
+        help_text=_lazy(
+            "Maximum number of allowed visits."
+        ),
+    )
+    number_of_visits = models.PositiveIntegerField(
+        default=0,
+        help_text=_lazy(
+            "Number of visits user has already made. Tracked if max visits is set."
+        ),
+    )
+    visits_exceeded = models.BooleanField(
+        default=False,
+        help_text=_lazy(
+            "Set to True when max allowed visits are used up."
+        ),
+    )
 
     class Meta:
         verbose_name = "Visitor pass"
@@ -87,8 +106,13 @@ class Visitor(models.Model):
 
     @property
     def is_valid(self) -> bool:
-        """Return True if the token is active and not yet expired."""
-        return self.is_active and not self.has_expired
+        """
+        Return True if the token is active and not yet expired.
+
+        Also check if number of allowed visists is not exceeded.
+
+        """
+        return self.is_active and not self.has_expired and not self.visits_exceeded
 
     def validate(self) -> None:
         """Raise InvalidVisitorPass if inactive or expired."""
@@ -96,6 +120,21 @@ class Visitor(models.Model):
             raise InvalidVisitorPass("Visitor pass is inactive")
         if self.has_expired:
             raise InvalidVisitorPass("Visitor pass has expired")
+        if self.visits_exceeded:
+            raise InvalidVisitorPass("Exceeded allowed number of visits")
+
+    def count_visits(self) -> None:
+        """Count how many visits have been made."""
+        if self.max_allowed_visits:
+            #  only check if max allowed visits is specified
+            if self.number_of_visits == (self.max_allowed_visits - 1):
+                #  increment so number of visits is accurate
+                self.number_of_visits += 1
+                self.visits_exceeded = True
+                self.save()
+            else:
+                self.number_of_visits += 1
+                self.save()
 
     def serialize(self) -> dict:
         """
@@ -112,6 +151,8 @@ class Visitor(models.Model):
             "email": self.email,
             "scope": self.scope,
             "context": self.context,
+            "max_allowed_visits": self.max_allowed_visits,
+            "number_of_vists": self.number_of_visits,
         }
 
     def tokenise(self, url: str) -> str:

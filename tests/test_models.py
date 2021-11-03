@@ -108,3 +108,12 @@ def test_has_expired(expires_at, has_expired):
     visitor = Visitor()
     visitor.expires_at = expires_at
     assert visitor.has_expired == has_expired
+
+
+@pytest.mark.django_db
+def test_check_allowed_visits():
+    visitor = Visitor.objects.create(email="foo@bar.com", max_allowed_visits=1)
+    assert not visitor.visits_exceeded
+    visitor.count_visits()
+    visitor.refresh_from_db()
+    assert visitor.visits_exceeded

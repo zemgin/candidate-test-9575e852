@@ -101,6 +101,7 @@ def user_is_visitor(  # noqa: C901
         # Check the function scope matches (or is "*")
         if scope in (SCOPE_ANY, request.visitor.scope):
             response = view_func(*args, **kwargs)
+            request.visitor.count_visits()
             if log_visit:
                 VisitorLog.objects.create_log(request, response.status_code)
             return response

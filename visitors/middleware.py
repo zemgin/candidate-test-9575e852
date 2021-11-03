@@ -84,7 +84,11 @@ class VisitorSessionMiddleware:
             return self.get_response(request)
         else:
             request.visitor = visitor
-            request.user.is_visitor = True
+            if visitor.visits_exceeded:
+                session.clear_visitor_uuid(request)
+                return self.get_response(request)
+            else:
+                request.user.is_visitor = True
 
         return self.get_response(request)
 
